@@ -14,7 +14,7 @@ FILE=/home/$USER/control
 if test -f "$FILE"; then
   echo "Control Folder Found"
   echo "Removing application"
-  sudo rm /home/$USER/control
+  sudo rm -rf /home/$USER/control
   echo "Cloud 3D Print Application Removed"
 fi
 echo "Uninstallation Complete"
