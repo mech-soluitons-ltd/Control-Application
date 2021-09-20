@@ -10,8 +10,7 @@ if test -f "$FILE"; then
   echo "Removed C3P services"
 fi
 
-FILE=/home/$USER/control
-if test -f "$FILE"; then
+if [ -d "/home/$USER/control/" ]; then
   echo "Control Folder Found"
   echo "Removing application"
   sudo rm -rf /home/$USER/control
