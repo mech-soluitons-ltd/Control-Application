@@ -56,7 +56,7 @@ echo
 printf '=%.0s' {1..45}
 echo
 echo "Setup complete"
-echo "Welcome to Cloud3DPrint! Please go to $(hostname -I | sed 's/ /:8081 /g') to connect your 3D printer."
+echo "Welcome to Cloud3DPrint! Please go to $(hostname -I) to connect your 3D printer."
 echo "Use 'sudo systemctl status c3p' to check the status of the application"
 echo "Use 'sudo systemctl reload c3p' to reload the application"
 echo "If you are using a Raspberry Pi Camera, please restart the system with 'sudo reboot' for it to be detected"
