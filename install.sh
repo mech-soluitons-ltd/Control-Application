@@ -6,6 +6,8 @@ echo "Installing Git"
 sudo apt-get install git -y
 echo "Installing JDK"
 sudo apt install openjdk-11-jre -y
+echo "Enabling CSI"
+echo $'\n#Enable CSI\nstart_x=1' | sudo tee -a /boot/config.txt
 echo "Downloading Control Application"
 git clone https://github.com/mech-soluitons-ltd/Control-Application
 mv /home/$USER/Control-Application /home/$USER/control
@@ -57,3 +59,4 @@ echo "Setup complete"
 echo "Welcome to Cloud3DPrint! Please go to $(hostname -I | sed 's/ /:8081 /g') to connect your 3D printer."
 echo "Use 'sudo systemctl status c3p' to check the status of the application"
 echo "Use 'sudo systemctl reload c3p' to reload the application"
+echo "If you are using a Raspberry Pi Camera, please restart the system with 'sudo reboot' for it to be detected"
