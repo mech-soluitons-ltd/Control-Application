@@ -3,5 +3,6 @@
   "distFolderPath": "/home/pi/control/dist/",
   "downloadedGcodePath": "/home/pi/control/gcode/",
   "streamFolderSavePath": "/home/pi/control/media/",
-  "dbFolderPath": "/home/pi/control/h2db"
+  "dbFolderPath": "/home/pi/control/h2db",
+  "controlFolderPath": "/home/pi/control/"
 }
