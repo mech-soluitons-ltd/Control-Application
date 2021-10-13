@@ -22,8 +22,8 @@ After=multi-user.target
 
 [Service]
 WorkingDirectory=/home/$USER
-ExecStart=java -cp /home/$USER/control/SerialCommunicator-C3P-v0.1-jar-with-dependencies.jar com.cloud3dprint.Main /home/$USER/control/config.json
-User=$USER
+ExecStart=sudo java -cp /home/$USER/control/SerialCommunicator-C3P-v0.1-jar-with-dependencies.jar com.cloud3dprint.Main /home/$USER/control/config.json
+User=root
 Type=simple
 Restart=on-failure
 RestartSec=10
