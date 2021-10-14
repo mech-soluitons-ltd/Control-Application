@@ -13,7 +13,7 @@ rm -f /home/pi/control/h2db/test*
 # Pull new JAR from repo
 echo "Pulling newest files"
 cd /home/pi/control
-git pull || true
+git pull --ff-only || true
 
 # Re-enable and restart the control panel service
 echo "Re-enabling and restarting control application service"
