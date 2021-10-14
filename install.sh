@@ -12,7 +12,18 @@ echo "Downloading Control Application"
 git clone https://github.com/mech-soluitons-ltd/Control-Application
 mv /home/$USER/Control-Application /home/$USER/control
 echo "Configuring config file for user: $USER"
-sed -i "s/pi/$USER/g" control/config.json
+sudo touch /home/$USER/control/config.json
+sudo tee /home/$USER/control/config.json &>/dev/null <<EOF
+{
+  "logFilePath": "/home/$USER/control/logs/control.log",
+  "distFolderPath": "/home/$USER/control/dist/",
+  "downloadedGcodePath": "/home/$USER/control/gcode/",
+  "streamFolderSavePath": "/home/$USER/control/media/",
+  "dbFolderPath": "/home/$USER/control/h2db",
+  "controlFolderPath": "/home/$USER/control/"
+}
+EOF
+#sed -i "s/pi/$USER/g" control/config.json
 echo "Creating system service"
 sudo touch /etc/systemd/system/c3p.service
 sudo tee /etc/systemd/system/c3p.service &>/dev/null <<EOF
