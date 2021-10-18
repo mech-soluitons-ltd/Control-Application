@@ -10,7 +10,16 @@ echo "Enabling CSI"
 echo $'\n#Enable CSI\nstart_x=1' | sudo tee -a /boot/config.txt
 echo "Downloading Control Application"
 git clone https://github.com/mech-soluitons-ltd/Control-Application
-mv /home/$USER/Control-Application /home/$USER/control
+if [ -d "/home/$USER/control"]
+then
+  echo "Control Application already exists"
+  echo "Do you wish to reinstall? (Yes,No)"
+  select yn in "Yes" "No"
+  case $yn in
+    Yes ) sudo rm -rf /home/$USER/control && /home/$USER/Control-Application /home/$USER/control;;
+    No ) exit 0;;
+  esac
+
 echo "Configuring config file for user: $USER"
 sudo touch /home/$USER/control/config.json
 sudo tee /home/$USER/control/config.json &>/dev/null <<EOF
@@ -23,8 +32,14 @@ sudo tee /home/$USER/control/config.json &>/dev/null <<EOF
   "controlFolderPath": "/home/$USER/control/"
 }
 EOF
+chmod +x /home/$USER/control/update.sh
 #sed -i "s/pi/$USER/g" control/config.json
 echo "Creating system service"
+if test -f "/etc/systemd/system/c3p.service"; then
+  echo "C3P Service Found"
+  echo "Removing existing C3P Service"
+  sudo rm /etc/systemd/system/c3p.service
+fi
 sudo touch /etc/systemd/system/c3p.service
 sudo tee /etc/systemd/system/c3p.service &>/dev/null <<EOF
 [Unit]
@@ -33,6 +48,7 @@ After=multi-user.target
 
 [Service]
 WorkingDirectory=/home/$USER
+ExecStartPre=/home/$USER/control/update.sh
 ExecStart=sudo java -cp /home/$USER/control/SerialCommunicator-C3P-v0.1-jar-with-dependencies.jar com.cloud3dprint.Main /home/$USER/control/config.json
 User=root
 Type=simple
@@ -42,6 +58,26 @@ RestartSec=10
 [Install]
 WantedBy=multi-user.target
 EOF
+
+echo "Making Upgrade Service"
+if test -f "/etc/systemd/system/c3pUpgrade.service"; then
+  echo "C3P Upgrade Service Found"
+  echo "Removing existing C3P Upgrade Service"
+  sudo rm /etc/systemd/system/c3pUpgrade.service
+fi
+touch /etc/systemd/system/c3pUpgrade.service
+cat <<EOF > /etc/systemd/system/c3pUpgrade.service
+[Unit]
+Description=Cloud 3D Print Control Application Upgrade
+After=multi-user.target
+
+[Service]
+WorkingDirectory=/home/pi
+ExecStart=/home/pi/control/media/upgrade.sh
+User=root
+Type=simple
+EOF
+
 sudo systemctl daemon-reload
 sudo systemctl enable c3p.service
 sudo systemctl start c3p.service
