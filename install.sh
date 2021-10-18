@@ -6,11 +6,9 @@ echo "Installing Git"
 sudo apt-get install git -y
 echo "Installing JDK"
 sudo apt install openjdk-11-jre -y
-echo "Enabling CSI"
-echo $'\n#Enable CSI\nstart_x=1' | sudo tee -a /boot/config.txt
 echo "Downloading Control Application"
 git clone https://github.com/mech-soluitons-ltd/Control-Application
-if [ -d "/home/$USER/control"]
+if [ -d "/home/$USER/control"];
 then
   echo "Control Application already exists"
   read -p "Do you want to reinstall? (y|n)" -n 1 -r
@@ -22,6 +20,9 @@ then
       exit 0
   fi
 fi
+mv /home/$USER/Control-Application /home/$USER/control
+echo "Enabling CSI"
+echo $'\n#Enable CSI\nstart_x=1' | sudo tee -a /boot/config.txt
 echo "Configuring config file for user: $USER"
 sudo touch /home/$USER/control/config.json
 sudo tee /home/$USER/control/config.json &>/dev/null <<EOF
