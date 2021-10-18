@@ -6,20 +6,19 @@ echo "Installing Git"
 sudo apt-get install git -y
 echo "Installing JDK"
 sudo apt install openjdk-11-jre -y
-echo "Downloading Control Application"
-git clone https://github.com/mech-soluitons-ltd/Control-Application
-if [ -d "/home/$USER/control"];
+if [ -d "/home/$USER/control" ];
 then
   echo "Control Application already exists"
   read -p "Do you want to reinstall? (y|n)" -n 1 -r
   if [[ $REPLY =~ ^[Yy]$ ]]
     then
       sudo rm -rf /home/$USER/control
-      mv /home/$USER/Control-Application /home/$USER/control
     else
       exit 0
   fi
 fi
+echo "Downloading Control Application"
+git clone https://github.com/mech-soluitons-ltd/Control-Application
 mv /home/$USER/Control-Application /home/$USER/control
 echo "Enabling CSI"
 echo $'\n#Enable CSI\nstart_x=1' | sudo tee -a /boot/config.txt
@@ -68,7 +67,7 @@ if test -f "/etc/systemd/system/c3pUpgrade.service"; then
   echo "Removing existing C3P Upgrade Service"
   sudo rm /etc/systemd/system/c3pUpgrade.service
 fi
-touch /etc/systemd/system/c3pUpgrade.service
+sudo touch /etc/systemd/system/c3pUpgrade.service
 cat <<EOF > /etc/systemd/system/c3pUpgrade.service
 [Unit]
 Description=Cloud 3D Print Control Application Upgrade
