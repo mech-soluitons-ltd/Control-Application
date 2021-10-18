@@ -14,6 +14,7 @@ if test -f "c3pUpgrade.service"; then
   echo "C3P Upgrade Service Found"
   sudo rm /etc/systemd/system/c3pUpgrade.service
   echo "Removed C3P Upgrade service"
+fi
 
 if [ -d "/home/$USER/control/" ]; then
   echo "Control Folder Found"
