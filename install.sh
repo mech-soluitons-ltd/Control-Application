@@ -87,7 +87,7 @@ sudo tee /home/$USER/control/update.sh &>/dev/null <<EOF
 cd /home/$USER/control
 git pull || true
 EOF
-chmod +x /home/$USER/control/update.sh
+sudo chmod +x /home/$USER/control/update.sh
 
 sudo systemctl daemon-reload
 sudo systemctl enable c3p.service
