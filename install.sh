@@ -35,7 +35,6 @@ sudo tee /home/$USER/control/config.json &>/dev/null <<EOF
   "controlFolderPath": "/home/$USER/control/"
 }
 EOF
-chmod +x /home/$USER/control/update.sh
 #sed -i "s/pi/$USER/g" control/config.json
 echo "Creating system service"
 if test -f "/etc/systemd/system/c3p.service"; then
