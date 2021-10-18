@@ -13,13 +13,15 @@ git clone https://github.com/mech-soluitons-ltd/Control-Application
 if [ -d "/home/$USER/control"]
 then
   echo "Control Application already exists"
-  echo "Do you wish to reinstall? (Yes,No)"
-  select yn in "Yes" "No"
-  case $yn in
-    Yes ) sudo rm -rf /home/$USER/control && /home/$USER/Control-Application /home/$USER/control;;
-    No ) exit 0;;
-  esac
-
+  read -p "Do you want to reinstall? (y|n)" -n 1 -r
+  if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+      sudo rm -rf /home/$USER/control
+      mv /home/$USER/Control-Application /home/$USER/control
+    else
+      exit 0
+  fi
+fi
 echo "Configuring config file for user: $USER"
 sudo touch /home/$USER/control/config.json
 sudo tee /home/$USER/control/config.json &>/dev/null <<EOF
