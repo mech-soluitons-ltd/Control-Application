@@ -68,7 +68,7 @@ if test -f "/etc/systemd/system/c3pUpgrade.service"; then
   sudo rm /etc/systemd/system/c3pUpgrade.service
 fi
 sudo touch /etc/systemd/system/c3pUpgrade.service
-cat <<EOF > /etc/systemd/system/c3pUpgrade.service
+sudo tee /etc/systemd/system/c3pUpgrade.service &>/dev/null <<EOF
 [Unit]
 Description=Cloud 3D Print Control Application Upgrade
 After=multi-user.target
