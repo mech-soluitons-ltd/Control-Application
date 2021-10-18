@@ -82,7 +82,7 @@ EOF
 
 echo "Creating update file"
 sudo touch /home/$USER/control/update.sh
-sudo tee /etc/systemd/system/c3pUpgrade.service &>/dev/null <<EOF
+sudo tee /home/$USER/control/update.sh &>/dev/null <<EOF
 #!/bin/bash +v
 cd /home/$USER/control
 git pull || true
