@@ -12,6 +12,7 @@ then
   read -p "Do you want to reinstall? (y|n)" -n 1 -r
   if [[ $REPLY =~ ^[Yy]$ ]]
     then
+      sudo systemctl stop c3p
       sudo rm -rf /home/$USER/control
     else
       exit 0
