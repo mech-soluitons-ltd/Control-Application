@@ -12,7 +12,10 @@ then
   read -p "Do you want to reinstall? (y|n)" -n 1 -r
   if [[ $REPLY =~ ^[Yy]$ ]]
     then
+      sudo systemctl disable c3p
       sudo systemctl stop c3p
+      sudo rm /etc/systemd/system/c3p.service
+      sudo rm /etc/systemd/system/c3pUpgrade.service
       sudo rm -rf /home/$USER/control
     else
       exit 0
