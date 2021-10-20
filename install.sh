@@ -54,7 +54,7 @@ After=multi-user.target
 [Service]
 WorkingDirectory=/home/$USER
 ExecStartPre=/home/$USER/control/update.sh
-ExecStart=sudo java -cp /home/$USER/control/SerialCommunicator-C3P-v0.1-jar-with-dependencies.jar com.cloud3dprint.Main /home/$USER/control/config.json
+ExecStart=/bin/sh -c 'java -cp /home/pi/control/SerialCommunicator-C3P-v*.jar com.cloud3dprint.Main /home/pi/control/config.json'
 User=root
 Type=simple
 Restart=on-failure
