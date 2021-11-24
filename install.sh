@@ -77,8 +77,8 @@ Description=Cloud 3D Print Control Application Upgrade
 After=multi-user.target
 
 [Service]
-WorkingDirectory=/home/pi
-ExecStart=/home/pi/control/media/upgrade.sh
+WorkingDirectory=/home/$USER
+ExecStart=/home/$USER/control/media/upgrade.sh
 User=root
 Type=simple
 EOF
